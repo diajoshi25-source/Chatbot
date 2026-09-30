@@ -1,5 +1,6 @@
 // Local preview server: run `npm run dev`, then open http://localhost:3000
-// (On Vercel this file isn't used. Vercel serves /public and /api automatically.)
+// On Vercel this file isn't used: Vercel serves /public and /api by itself.
+// (Don't rename it to server.js / index.js / app.js: Vercel would try to run it as the whole site.)
 import { createServer } from 'node:http';
 import { readFile } from 'node:fs/promises';
 import { extname, join, normalize } from 'node:path';
