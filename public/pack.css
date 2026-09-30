@@ -1,0 +1,99 @@
+/* ============================================================
+   PLAY MODE: a mountain meadow with three pups (pack.js)
+   ============================================================ */
+
+/* Play mode colours: like light mode, with sturdier glass so text reads well over the scene */
+[data-theme='play'] {
+  --glass: linear-gradient(135deg, rgba(255, 255, 255, .72), rgba(255, 255, 255, .42));
+  --glass-soft: rgba(255, 255, 255, .66);
+  --glass-line: rgba(255, 255, 255, .9);
+  --muted: #5b6690;
+  --ink: #26315a;
+  --shadow: rgba(40, 70, 120, .25);
+  --g1: #bfe0ff;
+  --g2: #ffc6dc;
+  --g3: #d9ecff;
+  --g5: #ffffff;
+}
+
+.playscene { display: none; position: fixed; inset: 0; z-index: -1; pointer-events: none; }
+.playscene svg { width: 100%; height: 100%; display: block; }
+[data-theme='play'] .playscene { display: block; }
+[data-theme='play'] .bg { display: none; }
+[data-theme='play'] #pup { display: none; }
+[data-theme='play'] .hero h1 { text-shadow: 0 2px 18px rgba(255, 255, 255, .7); }
+
+/* clouds drift across, sun gently glows, grass tufts sway */
+.cloud { fill: #fff; opacity: .9; animation: cloud linear infinite; }
+.c1 { --y: 130px; animation-duration: 150s; animation-delay: -40s; }
+.c2 { --y: 230px; animation-duration: 190s; animation-delay: -120s; opacity: .75; }
+.c3 { --y: 90px; animation-duration: 230s; animation-delay: -10s; }
+.tufts path { transform-box: fill-box; transform-origin: 50% 100%; animation: sway 3.5s ease-in-out infinite alternate; }
+.tufts path:nth-child(2n) { animation-delay: -1.7s; }
+
+@keyframes cloud { from { transform: translate(-220px, var(--y)); } to { transform: translate(1680px, var(--y)); } }
+@keyframes sway { from { transform: rotate(-6deg); } to { transform: rotate(6deg); } }
+
+/* theme button shows a paw in play mode */
+.theme-toggle .paw { opacity: 0; transform: scale(.5); }
+[data-theme='play'] .theme-toggle { color: #5aa94c; }
+[data-theme='play'] .theme-toggle .sun { opacity: 0; transform: rotate(90deg) scale(.5); }
+[data-theme='play'] .theme-toggle .paw { opacity: 1; transform: none; }
+
+/* ---------- The three pups ---------- */
+.buddy { display: none; transform-origin: 0 0; cursor: pointer; will-change: transform; }
+[data-theme='play'] .buddy { display: block; }
+
+/* every pup drawing is recoloured through these (the SVGs are shared with the main pup) */
+.pup [fill='#fff']:not([r='1']):not([r='1.3']) { fill: var(--fur, #fff); }
+.pup [fill='#fbeef3'] { fill: var(--fur-shade, #fbeef3); }
+.pup [stroke='#f3c2d2'] { stroke: var(--outline, #f3c2d2); }
+.pup [fill='#e9b48a'] { fill: var(--ear, #e9b48a); }
+.pup [fill='#f7dcc4'] { fill: var(--patch, #f7dcc4); }
+.pup [fill='#8fbdf0'] { fill: var(--collar, #8fbdf0); }
+
+.pup .fluff { display: none; }
+
+/* Snowy: small, fluffy white Lhasa Apso with a pink bow */
+.buddy[data-breed='lhasa-white'] {
+  --fur: #fffaf6;
+  --fur-shade: #f4ece6;
+  --outline: #e6d6cc;
+  --ear: #f6ede6;
+  --patch: #fffaf6;
+  --collar: #f58db2;
+}
+/* Smokey: medium, fluffy grey Lhasa Apso with a blue bow */
+.buddy[data-breed='lhasa-grey'] {
+  --fur: #c3c0c8;
+  --fur-shade: #aeabb4;
+  --outline: #99959f;
+  --ear: #a19da8;
+  --patch: #c3c0c8;
+  --collar: #7fb2ea;
+}
+/* Biscuit: big, beige Labrador with a short smooth coat */
+.buddy[data-breed='lab'] {
+  --fur: #efd2a4;
+  --fur-shade: #e0bf8c;
+  --outline: #cfa56f;
+  --ear: #d9b27c;
+  --patch: #efd2a4;
+  --collar: #e36b6b;
+}
+
+/* Lhasa look: long hanging ears, fringe, beard and a floor-length coat */
+.buddy[data-breed^='lhasa'] .fluff { display: inline; }
+.buddy[data-breed^='lhasa'] .pose-sit .ear > path,
+.buddy[data-breed^='lhasa'] .ear-side > path { transform-box: fill-box; transform-origin: 50% 0; transform: scaleY(1.45) scaleX(1.1); }
+.buddy[data-breed^='lhasa'] .tail-side,
+.buddy[data-breed^='lhasa'] .pose-sit .tail { filter: drop-shadow(0 0 1.5px var(--outline)); }
+
+/* speech bubbles stay the same size on every pup */
+.buddy .pup-bubble {
+  font-size: calc(12.5px / var(--s, 1));
+  padding: calc(6px / var(--s, 1)) calc(12px / var(--s, 1));
+  left: 60px;
+}
+.buddy .pup-bubble.left { left: auto; right: 60px; }
+.buddy .heart { font-size: calc(14px / var(--s, 1)); }

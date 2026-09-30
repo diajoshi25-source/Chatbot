@@ -1,0 +1,11 @@
+{
+  "name": "mini-dia",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node server.js"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

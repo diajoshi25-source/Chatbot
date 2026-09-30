@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Mini Dia · Say hi to my AI twin</title>
+  <meta name="description" content="Chat with Dia's AI twin about her design work, skills and experience." />
+  <link rel="icon" href="avatar.svg" />
+  <!-- Pick light/dark before the page paints, so it never flashes the wrong theme -->
+  <script>
+    document.documentElement.dataset.theme =
+      localStorage.getItem('theme') || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="pup.css" />
+  <link rel="stylesheet" href="pack.css" />
+</head>
+<body>
+  <!-- Intro: sparkle + greeting + loading bar, then the page is revealed through a growing circle -->
+  <div class="loader" aria-hidden="true">
+    <div class="loader-inner">
+      <span class="loader-mark">✦</span>
+      <span class="loader-text">hello, friend</span>
+      <span class="loader-bar"><i></i></span>
+    </div>
+  </div>
+
+  <!-- Background: a slowly moving gradient, seen through ribbed (fluted) glass -->
+  <!-- Play mode only: a sunny mountain meadow where three pups play (see pack.css / pack.js) -->
+  <div class="playscene" aria-hidden="true">
+    <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMax slice">
+      <defs>
+        <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#a9d4ff"/>
+          <stop offset=".55" stop-color="#d9ecff"/>
+          <stop offset=".8" stop-color="#ffe4ee"/>
+        </linearGradient>
+        <radialGradient id="sunGlow">
+          <stop offset="0" stop-color="#fff6d8" stop-opacity=".9"/>
+          <stop offset="1" stop-color="#fff6d8" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <rect width="1440" height="900" fill="url(#sky)"/>
+      <circle cx="1150" cy="170" r="170" fill="url(#sunGlow)"/>
+      <circle cx="1150" cy="170" r="62" fill="#fff4d2"/>
+
+      <g class="cloud c1"><ellipse cx="0" cy="0" rx="70" ry="26"/><ellipse cx="-40" cy="8" rx="44" ry="20"/><ellipse cx="42" cy="10" rx="48" ry="18"/></g>
+      <g class="cloud c2"><ellipse cx="0" cy="0" rx="56" ry="20"/><ellipse cx="34" cy="6" rx="38" ry="16"/><ellipse cx="-30" cy="7" rx="34" ry="14"/></g>
+      <g class="cloud c3"><ellipse cx="0" cy="0" rx="90" ry="30"/><ellipse cx="-56" cy="10" rx="52" ry="22"/><ellipse cx="60" cy="12" rx="56" ry="20"/></g>
+
+      <!-- far mountains with snow caps -->
+      <path d="M0 560L140 420L240 480L380 330L520 470L640 390L780 500L920 340L1060 460L1200 380L1320 450L1440 400V900H0z" fill="#c6cff0"/>
+      <g fill="#fff">
+        <path d="M120 440L140 420L173 440L162 436L150 444L138 434z"/>
+        <path d="M338 375L380 330L425 375L408 368L392 380L372 366L356 378z"/>
+        <path d="M603 415L640 390L671 415L660 410L648 419L634 408L618 418z"/>
+        <path d="M885 380L920 340L966 380L950 372L934 385L918 370L900 383z"/>
+        <path d="M1162 402L1200 380L1237 402L1226 398L1212 406L1196 396L1178 405z"/>
+      </g>
+      <!-- nearer mountains -->
+      <path d="M0 620L180 500L320 580L470 470L640 590L820 480L1000 600L1160 500L1320 590L1440 540V900H0z" fill="#a4b6e4"/>
+      <path d="M470 470L520 520L500 540L560 590L640 590z M820 480L870 530L850 560L920 600L1000 600z M1160 500L1200 540L1190 560L1260 590L1320 590z" fill="#95a8da"/>
+
+      <!-- rolling hills, trees and flowers -->
+      <path d="M0 690Q200 610 420 660T860 650T1300 640T1440 650V900H0z" fill="#b2e09a"/>
+      <g class="trees">
+        <rect x="238" y="628" width="6" height="18" rx="3" fill="#8a6a4f"/><circle cx="241" cy="620" r="16" fill="#7cc46e"/>
+        <rect x="268" y="636" width="5" height="14" rx="2.5" fill="#8a6a4f"/><circle cx="270" cy="630" r="12" fill="#6fb963"/>
+        <rect x="1088" y="624" width="6" height="18" rx="3" fill="#8a6a4f"/><circle cx="1091" cy="616" r="16" fill="#7cc46e"/>
+        <rect x="1120" y="632" width="5" height="14" rx="2.5" fill="#8a6a4f"/><circle cx="1122" cy="626" r="12" fill="#6fb963"/>
+      </g>
+      <path d="M0 740Q260 680 560 720T1120 710T1440 700V900H0z" fill="#93d27b"/>
+      <path d="M0 800Q360 770 720 790T1440 780V900H0z" fill="#79c566"/>
+      <g class="flowers">
+        <circle cx="140" cy="728" r="4" fill="#ffb3cf"/><circle cx="330" cy="712" r="3.5" fill="#fff"/><circle cx="520" cy="724" r="4" fill="#ffd66e"/>
+        <circle cx="760" cy="716" r="3.5" fill="#ffb3cf"/><circle cx="980" cy="722" r="4" fill="#fff"/><circle cx="1240" cy="712" r="3.5" fill="#ffb3cf"/>
+        <circle cx="60" cy="836" r="4.5" fill="#fff"/><circle cx="420" cy="850" r="4" fill="#ffb3cf"/><circle cx="880" cy="842" r="4.5" fill="#ffd66e"/>
+        <circle cx="1180" cy="856" r="4" fill="#fff"/><circle cx="1380" cy="834" r="4.5" fill="#ffb3cf"/>
+      </g>
+      <g class="tufts" fill="none" stroke="#5aa94c" stroke-width="3" stroke-linecap="round">
+        <path d="M90 812q3-14 6 0q3-16 6 0q3-12 6 0"/><path d="M300 820q3-14 6 0q3-16 6 0"/>
+        <path d="M610 806q3-14 6 0q3-16 6 0q3-12 6 0"/><path d="M930 816q3-14 6 0q3-16 6 0"/>
+        <path d="M1240 808q3-14 6 0q3-16 6 0q3-12 6 0"/><path d="M1400 818q3-14 6 0q3-16 6 0"/>
+      </g>
+    </svg>
+  </div>
+
+  <div class="bg" aria-hidden="true">
+    <div class="aurora">
+      <span class="glow g1"></span>
+      <span class="glow g2"></span>
+      <span class="glow g3"></span>
+      <span class="glow g4"></span>
+      <span class="glow g5"></span>
+    </div>
+    <div class="flutes"></div>
+    <div class="grain"></div>
+  </div>
+
+  <header class="topbar">
+    <span class="logo"><span class="logo-mark">✦</span>hello, friend</span>
+    <nav class="nav">
+      <a class="link" href="https://www.linkedin.com/in/diajoshi/" target="_blank" rel="noopener">LinkedIn ↗</a>
+      <button id="themeToggle" class="theme-toggle" type="button" aria-label="Switch mode: light, dark or play">
+        <svg class="sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        <svg class="moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="paw" viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><ellipse cx="12" cy="16" rx="5" ry="4.2"/><ellipse cx="5.5" cy="10.5" rx="2.2" ry="2.8"/><ellipse cx="9.5" cy="6.5" rx="2.2" ry="2.8"/><ellipse cx="14.5" cy="6.5" rx="2.2" ry="2.8"/><ellipse cx="18.5" cy="10.5" rx="2.2" ry="2.8"/></svg>
+      </button>
+    </nav>
+  </header>
+
+  <main class="stage">
+    <!-- Left: all about Dia -->
+    <section class="hero">
+      <div class="portrait" aria-hidden="true">
+        <span class="morph"></span>
+        <span class="morph morph-2"></span>
+        <span class="ring"></span>
+        <span class="orbit"><i>✦</i><i>♡</i><i>✦</i></span>
+        <span class="orbit orbit-2"><i>●</i><i>✦</i></span>
+        <img src="avatar.svg" alt="" class="hero-avatar" />
+        <span class="tag tag-1">Product Designer</span>
+        <span class="tag tag-2">UI / UX</span>
+        <span class="tag tag-3">CAD &amp; 3D</span>
+      </div>
+      <h1>Hey, I'm <em>Dia!</em></h1>
+      <p>Product designer from Mumbai, crafting precise, experience-driven work where form meets function. Say hi to my tiny AI twin.</p>
+    </section>
+
+    <!-- Right: the glass chat window -->
+    <div class="card-wrap">
+      <section class="card" aria-label="Chat with Mini Dia">
+        <div class="card-head">
+          <img src="avatar.svg" alt="" class="head-avatar" />
+          <div>
+            <strong>Mini Dia</strong>
+            <span class="online"><span class="status"></span>Online · replies in seconds</span>
+          </div>
+        </div>
+
+        <div id="chat" class="chat" aria-live="polite">
+          <div class="msg bot">
+            <img src="avatar.svg" alt="" class="mini-avatar" />
+            <div class="bubble">Hey there! I'm Mini Dia, Dia's AI twin. Ask me anything about my work!</div>
+          </div>
+          <div id="chips" class="chips">
+            <button type="button" class="chip">What do you do?</button>
+            <button type="button" class="chip">Your internships?</button>
+            <button type="button" class="chip">Favourite tools?</button>
+            <button type="button" class="chip">Where did you study?</button>
+          </div>
+        </div>
+
+        <form id="composer" class="composer" autocomplete="off">
+          <input id="input" type="text" placeholder="Ask me anything…" maxlength="1000" aria-label="Your message" />
+          <button id="send" type="submit" aria-label="Send">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+          </button>
+        </form>
+      </section>
+    </div>
+  </main>
+
+  <p class="fineprint">I'm Dia's AI twin, I might mix things up · <a href="mailto:diajoshi25@gmail.com">say hi to the real me</a></p>
+
+  <!-- The pup (styles in pup.css, behaviour in app.js).
+       One drawing per pose: sit, walk (side view), sleep, play bow and back view. -->
+  <div class="pup" id="pup" data-pose="walk" data-face="default">
+    <span class="pup-bubble" id="pupText" role="status"></span>
+
+    <!-- little extras that pop up above the head -->
+    <svg class="marks" viewBox="0 0 90 82" aria-hidden="true">
+      <path class="mark-heart" d="M76 13c-2-3.5-8-1.5-6 3l6 5 6-5c2-4.5-4-6.5-6-3z" fill="#f58db2"/>
+      <text class="mark-q" x="70" y="16">?</text>
+      <path class="mark-bang" d="M70 12l3-6M75 15l6-3M76 20l6 0" stroke="#7f8fe0" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+
+    <div class="pup-flip">
+      <span class="speed" aria-hidden="true"><i></i><i></i><i></i></span>
+      <div class="pup-step">
+
+        <!-- SIT: facing you -->
+        <svg class="pose pose-sit" viewBox="0 0 90 82" aria-hidden="true">
+          <g class="tail"><path d="M63 62q15-3 17-18q.5-4-3-3q-4 10-15 13z" fill="#fff" stroke="#f3c2d2" stroke-width="1.5" stroke-linejoin="round"/></g>
+          <path d="M24 82q-2-32 21-34q23 2 21 34z" fill="#fff" stroke="#f3c2d2" stroke-width="1.5"/>
+          <path d="M31 50q14 7 28 0v4q-14 7-28 0z" fill="#8fbdf0"/>
+          <circle cx="45" cy="58.5" r="3" fill="#ec6f98"/>
+          <path class="fluff" d="M21 82q-1-12 5-17q3 4 6 0q3 4 6 0q3 4 7 0q4 4 7 0q3 4 6 0q3 4 6 0q6 5 5 17z" fill="#fff" stroke="#f3c2d2" stroke-width="1.2" stroke-linejoin="round"/>
+          <g class="paw-up"><path d="M57 60q2-15 10-19q6-2 6 4q-1 9-8 15z" fill="#fff" stroke="#f3c2d2" stroke-width="1.5" stroke-linejoin="round"/></g>
+          <g class="head">
+            <g class="ear ear-l"><path d="M29 20q-11 2-11 17q0 9 7 9q6-2 8-15z" fill="#e9b48a"/></g>
+            <g class="ear ear-r"><path d="M61 20q11 2 11 17q0 9-7 9q-6-2-8-15z" fill="#e9b48a"/></g>
+            <ellipse cx="45" cy="32" rx="19" ry="17" fill="#fff" stroke="#f3c2d2" stroke-width="1.5"/>
+            <ellipse cx="52.5" cy="29.5" rx="6.5" ry="5.5" fill="#f7dcc4"/>
+            <!-- Lhasa only: fringe, beard and a top-knot bow -->
+            <g class="fluff">
+              <path d="M28 25q4-13 17-12q13-1 17 12q-4-3-7 0q-3-4-6-1q-4-3-8 0q-3-3-6 1q-3-3-7 0z" fill="#fff" stroke="#f3c2d2" stroke-width="1.2" stroke-linejoin="round"/>
+              <path d="M34 38q1 9 11 10q10-1 11-10q-3 4-6 3q-2 3-5 1q-3 2-5-1q-3 1-6-3z" fill="#fff" stroke="#f3c2d2" stroke-width="1.2" stroke-linejoin="round"/>
+              <path class="topknot" d="M45 13l-6-4v8zM45 13l6-4v8z" fill="#8fbdf0"/>
+            </g>
+            <g class="eyes"><g class="pupils">
+              <circle cx="38" cy="31" r="2.8" fill="#2a1712"/>
+              <circle cx="52" cy="31" r="2.8" fill="#2a1712"/>
+              <circle cx="39" cy="30" r="1" fill="#fff"/>
+              <circle cx="53" cy="30" r="1" fill="#fff"/>
+            </g></g>
+            <path class="eyes-happy" d="M35 32q3-5 6 0M49 32q3-5 6 0" fill="none" stroke="#2a1712" stroke-width="2" stroke-linecap="round"/>
+            <path class="eyes-closed" d="M35 30q3 3.5 6 0M49 30q3 3.5 6 0" fill="none" stroke="#2a1712" stroke-width="2" stroke-linecap="round"/>
+            <g class="eyes-sad">
+              <circle cx="38" cy="32" r="3.5" fill="#2a1712"/>
+              <circle cx="52" cy="32" r="3.5" fill="#2a1712"/>
+              <circle cx="39.4" cy="30.5" r="1.3" fill="#fff"/>
+              <circle cx="53.4" cy="30.5" r="1.3" fill="#fff"/>
+              <path d="M33 25.5q4-3.5 8-1.5M49 24q4-2 8 1.5" fill="none" stroke="#2a1712" stroke-width="1.5" stroke-linecap="round"/>
+            </g>
+            <ellipse cx="33" cy="38" rx="3.2" ry="2" fill="#ffb3c8"/>
+            <ellipse cx="57" cy="38" rx="3.2" ry="2" fill="#ffb3c8"/>
+            <ellipse cx="45" cy="37" rx="3.2" ry="2.3" fill="#2a1712"/>
+            <path class="tongue" d="M43.4 41.6q1.6 5.4 3.2 0z" fill="#ff8fb1"/>
+            <path class="tongue-long" d="M42.6 41.4q2.4 11 4.8 0z" fill="#ff8fb1"/>
+            <ellipse class="mouth-open" cx="45" cy="42.5" rx="3.4" ry="2.8" fill="#8c2a41"/>
+            <path class="mouth-smile" d="M41 40q2 3 4 0q2 3 4 0" fill="none" stroke="#2a1712" stroke-width="1.4" stroke-linecap="round"/>
+            <path class="mouth-frown" d="M41.5 42q3.5-3 7 0" fill="none" stroke="#2a1712" stroke-width="1.4" stroke-linecap="round"/>
+          </g>
+          <ellipse cx="37" cy="79" rx="5.5" ry="3.6" fill="#fff" stroke="#f3c2d2" stroke-width="1.5"/>
+          <ellipse class="paw-r" cx="53" cy="79" rx="5.5" ry="3.6" fill="#fff" stroke="#f3c2d2" stroke-width="1.5"/>
+        </svg>
+
+        <!-- WALK / RUN: side view, facing right (flipped with CSS to face left) -->
+        <svg class="pose pose-walk" viewBox="0 0 90 82" aria-hidden="true">
+          <g class="tail-side"><path d="M22 52q-12-4-13-18q0-4 4-3q2 11 12 15z" fill="#fff" stroke="#f3c2d2" stroke-width="1.5" stroke-linejoin="round"/></g>
+          <g class="leg leg-b2"><rect x="31" y="58" width="9" height="21" rx="4.5" fill="#fbeef3" stroke="#f3c2d2" stroke-width="1.5"/></g>
+          <g class="leg leg-f2"><rect x="55" y="58" width="9" height="21" rx="4.5" fill="#fbeef3" stroke="#f3c2d2" stroke-width="1.5"/></g>
+          <ellipse cx="44" cy="55" rx="25" ry="14" fill="#fff" stroke="#f3c2d2" stroke-width="1.5"/>
+          <g class="leg leg-b1"><rect x="22" y="59" width="9" height="21" rx="4.5" fill="#fff" stroke="#f3c2d2" stroke-width="1.5"/></g>
+          <g class="leg leg-f1"><rect x="62" y="59" width="9" height="21" rx="4.5" fill="#fff" stroke="#f3c2d2" stroke-width="1.5"/></g>
+          <!-- Lhasa only: long flowing coat -->
+          <path class="fluff" d="M19 56q25 12 51 0v9q-3 4-6 0q-3 4-6 0q-3 4-6 0q-3 4-6 0q-3 4-6 0q-3 4-6 0q-3 4-6 0q-3 4-6 0q-4 3-3-9z" fill="#fff" stroke="#f3c2d2" stroke-width="1.2" stroke-linejoin="round"/>
+          <path d="M58 43q6 7 4 19l4 .5q2-11-4-20z" fill="#8fbdf0"/>
+          <circle cx="65.5" cy="63" r="2.6" fill="#ec6f98"/>
+          <g class="head-side">
+            <circle cx="66" cy="32" r="16" fill="#fff" stroke="#f3c2d2" stroke-width="1.5"/>
+            <ellipse cx="79" cy="37" rx="8.5" ry="6.5" fill="#fff" stroke="#f3c2d2" stroke-width="1.5"/>
+            <ellipse cx="75" cy="35" rx="6" ry="5" fill="#fff"/>
+            <ellipse cx="70" cy="29.5" rx="5.5" ry="5" fill="#f7dcc4"/>
+            <g class="eye-side"><circle cx="71" cy="30" r="2.7" fill="#2a1712"/><circle cx="72" cy="29" r="1" fill="#fff"/></g>
+            <path class="eye-side-happy" d="M68 31q3-4 6 0" fill="none" stroke="#2a1712" stroke-width="2" stroke-linecap="round"/>
+            <ellipse cx="86" cy="34.5" rx="2.6" ry="2.2" fill="#2a1712"/>
+            <ellipse cx="75" cy="38.5" rx="3" ry="1.8" fill="#ffb3c8"/>
+            <path class="tongue-side" d="M81.5 41.5q1.5 5.5 3.6 0z" fill="#ff8fb1"/>
+            <path d="M80 41q3 2.5 6-.5" fill="none" stroke="#2a1712" stroke-width="1.4" stroke-linecap="round"/>
+            <path class="fluff" d="M52 24q6-12 18-9q7 2 8 9q-4-3-6 0q-3-4-6-1q-3-3-6 0q-4-2-8 1z" fill="#fff" stroke="#f3c2d2" stroke-width="1.2" stroke-linejoin="round"/>
+            <path class="fluff" d="M77 41q2 8 8 7q-2 3-6 3q-5-2-5-8z" fill="#fff" stroke="#f3c2d2" stroke-width="1.2" stroke-linejoin="round"/>
+            <g class="ear-side"><path d="M58 19q-9 1-9 15q0 8 6 8q5-2 6-14z" fill="#e9b48a"/></g>
+          </g>
+        </svg>
+
+        <!-- SLEEP: curled up with its head on its paws -->
+        <svg class="pose pose-sleep" viewBox="0 0 90 82" aria-hidden="true">
+          <g class="breathe">
+            <path d="M72 78q12-1 12-11q-5 6-13 6z" fill="#fff" stroke="#f3c2d2" stroke-width="1.5" stroke-linejoin="round"/>
+            <path d="M16 80q-3-24 30-27q32-2 34 19q1 8-6 8z" fill="#fff" stroke="#f3c2d2" stroke-width="1.5"/>
+            <path d="M14 55q-7 8-3 19q6 3 8-5q0-9-5-14z" fill="#e9b48a"/>
+            <ellipse cx="30" cy="63" rx="18" ry="14" fill="#fff" stroke="#f3c2d2" stroke-width="1.5"/>
+            <path d="M43 52q9 5 7 17q-6 3-8-5z" fill="#e9b48a"/>
+            <path d="M22 62q3 3 6 0M33 62q3 3 6 0" fill="none" stroke="#2a1712" stroke-width="1.8" stroke-linecap="round"/>
+            <ellipse cx="20.5" cy="67" rx="3" ry="1.8" fill="#ffb3c8"/>
+            <ellipse cx="40.5" cy="67" rx="3" ry="1.8" fill="#ffb3c8"/>
+            <ellipse cx="30.5" cy="68" rx="2.8" ry="2" fill="#2a1712"/>
+            <ellipse cx="21" cy="79" rx="6" ry="3.4" fill="#fff" stroke="#f3c2d2" stroke-width="1.5"/>
+            <ellipse cx="35" cy="79.5" rx="6" ry="3.4" fill="#fff" stroke="#f3c2d2" stroke-width="1.5"/>
+          </g>
+          <g class="zzz"><text class="z z1" x="50" y="40">z</text><text class="z z2" x="58" y="30">z</text><text class="z z3" x="67" y="19">Z</text></g>
+        </svg>
+
+        <!-- PLAY BOW: front down, bottom up, tail wagging -->
+        <svg class="pose pose-bow" viewBox="0 0 90 82" aria-hidden="true">
+          <g class="tail-up"><path d="M68 38q1-18 9-25q4-2 4 2q-5 8-8 24z" fill="#fff" stroke="#f3c2d2" stroke-width="1.5" stroke-linejoin="round"/></g>
+          <rect x="50" y="52" width="9" height="28" rx="4.5" fill="#fff" stroke="#f3c2d2" stroke-width="1.5"/>
+          <rect x="63" y="52" width="9" height="28" rx="4.5" fill="#fff" stroke="#f3c2d2" stroke-width="1.5"/>
+          <ellipse cx="60" cy="47" rx="17" ry="14" fill="#fff" stroke="#f3c2d2" stroke-width="1.5"/>
+          <ellipse cx="36" cy="69" rx="20" ry="10" fill="#fff" stroke="#f3c2d2" stroke-width="1.5"/>
+          <ellipse cx="17" cy="78" rx="9" ry="4.2" fill="#fff" stroke="#f3c2d2" stroke-width="1.5"/>
+          <ellipse cx="41" cy="79" rx="9" ry="4.2" fill="#fff" stroke="#f3c2d2" stroke-width="1.5"/>
+          <path d="M17 46q-10 2-10 15q0 8 6 8q6-2 7-14z" fill="#e9b48a"/>
+          <path d="M47 46q10 2 10 15q0 8-6 8q-6-2-7-14z" fill="#e9b48a"/>
+          <circle cx="32" cy="56" r="16" fill="#fff" stroke="#f3c2d2" stroke-width="1.5"/>
+          <circle cx="26" cy="55" r="2.9" fill="#2a1712"/><circle cx="38" cy="55" r="2.9" fill="#2a1712"/>
+          <circle cx="27" cy="54" r="1" fill="#fff"/><circle cx="39" cy="54" r="1" fill="#fff"/>
+          <ellipse cx="21.5" cy="61" rx="3" ry="1.8" fill="#ffb3c8"/><ellipse cx="42.5" cy="61" rx="3" ry="1.8" fill="#ffb3c8"/>
+          <ellipse cx="32" cy="61" rx="3" ry="2.2" fill="#2a1712"/>
+          <path d="M28.5 64q1.8 2.6 3.5 0q1.8 2.6 3.5 0" fill="none" stroke="#2a1712" stroke-width="1.4" stroke-linecap="round"/>
+        </svg>
+
+        <!-- BACK: turned around, tail wagging -->
+        <svg class="pose pose-back" viewBox="0 0 90 82" aria-hidden="true">
+          <path d="M24 82q-2-32 21-34q23 2 21 34z" fill="#fff" stroke="#f3c2d2" stroke-width="1.5"/>
+          <path d="M31 49q14 6 28 0v4q-14 6-28 0z" fill="#8fbdf0"/>
+          <ellipse cx="45" cy="32" rx="19" ry="17" fill="#fff" stroke="#f3c2d2" stroke-width="1.5"/>
+          <path d="M29 20q-11 2-11 17q0 9 7 9q6-2 8-15z" fill="#e9b48a"/>
+          <path d="M61 20q11 2 11 17q0 9-7 9q-6-2-8-15z" fill="#e9b48a"/>
+          <g class="tail-back"><ellipse cx="45" cy="72" rx="5" ry="9" fill="#fff" stroke="#f3c2d2" stroke-width="1.5"/></g>
+          <ellipse cx="33" cy="80" rx="5" ry="2.6" fill="#fff" stroke="#f3c2d2" stroke-width="1.5"/>
+          <ellipse cx="57" cy="80" rx="5" ry="2.6" fill="#fff" stroke="#f3c2d2" stroke-width="1.5"/>
+        </svg>
+
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+  <script src="pack.js"></script>
+</body>
+</html>
